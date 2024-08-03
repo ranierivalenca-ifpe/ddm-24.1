@@ -1,10 +1,38 @@
+import { FontAwesome } from '@expo/vector-icons';
 import { StyleSheet, View, Pressable, Text } from 'react-native';
 
-export default function Button({ label }) {
+export default function Button({
+  label,
+  onPress,
+  icon
+}) {
+
+  const iconData = {
+    name: undefined,
+    size: 18,
+    color: 'white',
+    style: {},
+    position: 'left',
+    ...icon,
+  }
+
+  const _icon = iconData.name ? (
+    <FontAwesome
+      name={iconData.name}
+      size={iconData.size}
+      color={iconData.color}
+      style={[iconData.style, styles.buttonIcon]}
+    />
+  ) : null;
+  console.log({ _icon });
+
+
   return (
     <View style={styles.buttonContainer}>
-      <Pressable style={styles.button} onPress={() => alert('You pressed a button.')}>
+      <Pressable style={styles.button} onPress={onPress}>
+        {_icon && iconData.position === 'left' ? _icon : null}
         <Text style={styles.buttonLabel}>{label}</Text>
+        {_icon && iconData.position === 'right' ? _icon : null}
       </Pressable>
     </View>
   );
