@@ -1,11 +1,21 @@
 import { FontAwesome } from '@expo/vector-icons';
 import { StyleSheet, View, Pressable, Text } from 'react-native';
 
-export default function Button({
-  label,
-  onPress,
-  icon
-}) {
+export interface ButtonProps {
+  label: string;
+  onPress?: () => void;
+  icon?: {
+    name?: typeof FontAwesome.defaultProps.name;
+    size?: number;
+    color?: string;
+    style?: any;
+    position?: 'left' | 'right';
+  };
+}
+
+export default function Button(props: ButtonProps) {
+
+  const { label, onPress, icon } = props;
 
   const iconData = {
     name: undefined,
