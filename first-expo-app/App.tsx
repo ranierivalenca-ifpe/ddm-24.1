@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Img from './components/Img';
 import Button from './components/Button';
+import { Theme } from './Theme';
 
 const imagePlaceholder = require('./assets/images/background-image.png');
 
@@ -24,7 +25,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#25292e',
+    backgroundColor: Theme.backgroundColor,
     alignItems: 'center',
   },
   imageContainer: {
