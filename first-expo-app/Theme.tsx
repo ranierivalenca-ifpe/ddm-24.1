@@ -1,25 +1,25 @@
-import { DimensionValue, StyleSheet } from 'react-native';
+import { DimensionValue, StyleSheet } from "react-native";
 
 export const Theme = {
-  backgroundColor: '#25292e',
+  backgroundColor: "#25292e",
   text: {
-    color: 'white',
+    color: "white",
     fontSize: 18,
   },
   borderRadius: 10,
   padding: 3,
   button: {
-    backgroundColor: '#0366d6',
-    color: 'white',
+    backgroundColor: "#0366d6",
+    color: "white",
     borderRadius: 10,
-    width: '100%' as DimensionValue,
+    width: "100%" as DimensionValue,
     height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
     gap: 10,
   },
-}
+};
 
 // export const Theme = StyleSheet.create({
 

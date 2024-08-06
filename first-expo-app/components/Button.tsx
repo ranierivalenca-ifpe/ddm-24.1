@@ -1,6 +1,6 @@
-import { FontAwesome } from '@expo/vector-icons';
-import { StyleSheet, View, Pressable, Text } from 'react-native';
-import { Theme } from 'Theme';
+import { FontAwesome } from "@expo/vector-icons";
+import { StyleSheet, View, Pressable, Text } from "react-native";
+import { Theme } from "Theme";
 
 export interface ButtonProps {
   label: string;
@@ -10,12 +10,11 @@ export interface ButtonProps {
     size?: number;
     color?: string;
     style?: any;
-    position?: 'left' | 'right';
+    position?: "left" | "right";
   };
 }
 
 export default function Button(props: ButtonProps) {
-
   const { label, onPress, icon } = props;
 
   const iconData = {
@@ -23,9 +22,9 @@ export default function Button(props: ButtonProps) {
     size: 18,
     color: Theme.button.color,
     style: {},
-    position: 'left',
+    position: "left",
     ...icon,
-  }
+  };
 
   const _icon = iconData.name ? (
     <FontAwesome
@@ -37,13 +36,12 @@ export default function Button(props: ButtonProps) {
   ) : null;
   console.log({ _icon });
 
-
   return (
     <View style={styles.buttonContainer}>
       <Pressable style={styles.pressable} onPress={onPress}>
-        {_icon && iconData.position === 'left' ? _icon : null}
+        {_icon && iconData.position === "left" ? _icon : null}
         <Text style={styles.buttonLabel}>{label}</Text>
-        {_icon && iconData.position === 'right' ? _icon : null}
+        {_icon && iconData.position === "right" ? _icon : null}
       </Pressable>
     </View>
   );
@@ -54,18 +52,18 @@ const styles = StyleSheet.create({
     backgroundColor: Theme.button.backgroundColor,
     borderRadius: Theme.borderRadius,
     marginHorizontal: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     margin: 10,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   pressable: {
     borderRadius: 10,
     width: Theme.button.width,
     height: Theme.button.height,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
   },
   buttonIcon: {
     paddingRight: 8,
