@@ -4,19 +4,57 @@ import Img from './components/Img';
 import Button from './components/Button';
 import { Theme } from './Theme';
 
+import * as ImagePicker from 'expo-image-picker';
+import { useState } from 'react';
+
 const imagePlaceholder = require('./assets/images/background-image.png');
 
+const pickImageAsync = (
+  callback: (result: ImagePicker.ImagePickerSuccessResult) => void,
+  rejection?: (result: ImagePicker.ImagePickerResult) => void
+) => async () => {
+  let result = await ImagePicker.launchImageLibraryAsync({
+    allowsEditing: true,
+    quality: 1,
+  });
+
+  if (!result.canceled) {
+    callback(result);
+  } else {
+    (rejection && rejection(result)) ?? alert('You did not select any image.');
+  }
+};
+
 export default function App() {
+  const [image, setImage] = useState<string | null>(null);
+  const [showOptions, setShowOptions] = useState<boolean>(false);
+
+  const mainButtons = (
+    <>
+      <Button
+        label="Choose a photo"
+        icon={{ name: 'picture-o' }}
+        onPress={pickImageAsync((result) => {
+          setImage(result.assets[0].uri);
+          setShowOptions(true);
+        })}
+      />
+      <Button label="set photo" onPress={() => setShowOptions(true)} />
+      <Button label="remove photo" onPress={() => setImage(null)} />
+    </>
+  );
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Img placeholder={imagePlaceholder} />
+        <Img source={image!} placeholder={imagePlaceholder} />
         {/* <Img /> */}
       </View>
-      <View style={styles.footerContainer}>
-        <Button label="Choose a photo" icon={{ name: "picture-o" }} />
-        <Button label="Use this photo" />
-      </View>
+      {showOptions ?
+        <View />
+        :
+        mainButtons
+      }
       <StatusBar style="auto" />
     </View>
   );
