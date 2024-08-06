@@ -1,11 +1,16 @@
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { StyleSheet, View, Pressable, Text } from "react-native";
 import { Theme } from "Theme";
 
 export interface ButtonProps {
   label: string;
   onPress?: () => void;
+  border?: {
+    color?: string;
+    width?: number;
+  };
   icon?: {
+    type?: "FontAwesome" | "MaterialIcons";
     name?: typeof FontAwesome.defaultProps.name;
     size?: number;
     color?: string;
@@ -15,9 +20,10 @@ export interface ButtonProps {
 }
 
 export default function Button(props: ButtonProps) {
-  const { label, onPress, icon } = props;
+  const { label, onPress, border, icon } = props;
 
   const iconData = {
+    type: "FontAwesome",
     name: undefined,
     size: 18,
     color: Theme.button.color,
@@ -27,17 +33,32 @@ export default function Button(props: ButtonProps) {
   };
 
   const _icon = iconData.name ? (
-    <FontAwesome
-      name={iconData.name}
-      size={iconData.size}
-      color={iconData.color}
-      style={[iconData.style, styles.buttonIcon]}
-    />
+    iconData.type === "FontAwesome" ? (
+      <FontAwesome
+        name={iconData.name}
+        size={iconData.size}
+        color={iconData.color}
+        style={[iconData.style, styles.buttonIcon]}
+      />
+    ) : (
+      <MaterialIcons
+        name={iconData.name}
+        size={iconData.size}
+        color={iconData.color}
+        style={[iconData.style, styles.buttonIcon]}
+      />
+    )
   ) : null;
-  console.log({ _icon });
+  // console.log({ _icon });
 
   return (
-    <View style={styles.buttonContainer}>
+    <View
+      style={[
+        styles.buttonContainer,
+        border && border.color ? { borderColor: border?.color } : {},
+        border && border.width ? { borderWidth: border?.width } : {},
+      ]}
+    >
       <Pressable style={styles.pressable} onPress={onPress}>
         {_icon && iconData.position === "left" ? _icon : null}
         <Text style={styles.buttonLabel}>{label}</Text>
@@ -51,14 +72,17 @@ const styles = StyleSheet.create({
   buttonContainer: {
     backgroundColor: Theme.button.backgroundColor,
     borderRadius: Theme.borderRadius,
+    borderColor: Theme.button.borderColor,
+    borderWidth: Theme.button.borderWidth,
     marginHorizontal: 20,
     alignItems: "center",
     justifyContent: "center",
-    margin: 10,
+    margin: 5,
     flexDirection: "row",
+    flex: 1,
   },
   pressable: {
-    borderRadius: 10,
+    borderRadius: Theme.borderRadius,
     width: Theme.button.width,
     height: Theme.button.height,
     alignItems: "center",

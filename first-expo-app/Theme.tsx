@@ -9,7 +9,9 @@ export const Theme = {
   borderRadius: 10,
   padding: 3,
   button: {
-    backgroundColor: "#0366d6",
+    backgroundColor: "transparent",
+    borderColor: "#0366d6",
+    borderWidth: 0,
     color: "white",
     borderRadius: 10,
     width: "100%" as DimensionValue,
